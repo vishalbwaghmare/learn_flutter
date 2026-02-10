@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:hive_example/person.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(PersonAdapter());
+  var personBox = await Hive.openBox<Person>('personBox');
+
+  Person person = Person.fromJson({
+    'name': 'Vishal',
+    'nickName': 'Sopan'
+  });
+  await personBox.put('john', person);
+
+  Person? personExample = personBox.get("john");
+
+  print(personExample?.nickName);
   runApp(const MyApp());
 }
 
@@ -13,9 +30,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter Hive demo'),
     );
   }
 }
@@ -30,13 +47,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,23 +55,31 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      body: ValueListenableBuilder(
+          valueListenable: Hive.box<Person>('personBox').listenable(),
+          builder: (context, Box<Person> box , _){
+            final person = box.get('john');
+
+            if(person == null){
+              return Center(child: Text('No user found'));
+            }
+            return Center(
+              child: Column(
+                mainAxisAlignment: .center,
+                children: [
+                  Text(
+                    'Name: ${person.name}',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Nickname: ${person.nickName}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+            );
+          })
     );
   }
 }
