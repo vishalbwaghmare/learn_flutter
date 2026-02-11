@@ -27,9 +27,6 @@ class PersonDatasource extends PersonLocalDataSource {
   Future<List<Person>> getContacts() async{
     try{
       List<Person> contactList =  personBox.values.toList();
-      personBox.toMap().forEach((key, value){
-        contactList.add(value);
-      });
       return contactList;
     }catch(e){
       throw Exception("Failed to load contacts");
