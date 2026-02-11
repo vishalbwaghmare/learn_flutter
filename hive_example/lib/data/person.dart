@@ -21,4 +21,9 @@ class Person{
         nickName: json?['nickName'] ?? "",
     );
   }
+
+  Map<String, String> toJson()=> {
+    "name": name ?? "",
+    "nickName": nickName ?? ""
+  };
 }
