@@ -129,6 +129,8 @@ class _PersonPageState extends State<PersonPage> {
               color: Colors.purpleAccent,
               onPressed: (){
                 _showAddContactDialog();
+                _nameController.clear();
+                _nickNameController.clear();
               },
               icon: Icon(Icons.person_add_alt, size: 40,)
           ),
@@ -159,20 +161,34 @@ class _PersonPageState extends State<PersonPage> {
                 itemBuilder: (context, index) {
                   final person = state.contactList[index];
 
-                  return Card(
-                    elevation: 3,
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        child: Text(
-                          person.name![0].toUpperCase(),
-                        ),
+                  return Dismissible(
+                    key: Key(person.name ?? ""),
+                    direction: DismissDirection.endToStart,
+                    onDismissed: (direction){},
+                    child: Card(
+                      elevation: 3,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
                       ),
-                      title: Text(person.name ?? "", style: TextStyle(fontSize: 22, color: Colors.black),),
-                      subtitle: Text(person.nickName ?? "",style: TextStyle(fontSize: 16, color: Colors.black)),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          /*child: Text(
+                            person.name![0].toUpperCase(),
+                          ),*/
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.asset(
+                              index % 2 ==0 ? "assets/images/male.jpg" : "assets/images/female.jpg",
+                              fit: BoxFit.cover,
+                              width: 70,
+                              height: 70,
+                            ),
+                          ),
+                        ),
+                        title: Text(person.name ?? "", style: TextStyle(fontSize: 22, color: Colors.black),),
+                        subtitle: Text(person.nickName ?? "",style: TextStyle(fontSize: 16, color: Colors.black)),
+                      ),
                     ),
                   );
                 },
