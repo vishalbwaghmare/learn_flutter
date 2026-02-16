@@ -9,6 +9,7 @@ class NotificationServices {
 
   RemoteMessage? latestMessage;
   bool _appJustLaunched = true;
+  final ValueNotifier<int> notificationCount = ValueNotifier(0);
 
   initFCM()async{
 
@@ -20,14 +21,15 @@ class NotificationServices {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
       print("Message : ${message.notification?.title}");
       latestMessage = message; //save message
-      hasNewNotification.value = true;
+      //hasNewNotification.value = true;
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message){
       print("Message : ${message.notification?.title}");
       if(!_appJustLaunched){
         latestMessage = message;
-        hasNewNotification.value = true;
+        //hasNewNotification.value = true;
+        notificationCount.value++;
       }
     });
     _appJustLaunched = false;

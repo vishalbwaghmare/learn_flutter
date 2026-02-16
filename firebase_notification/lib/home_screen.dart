@@ -37,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         backgroundColor: Colors.deepOrange,
         actions: [
-          ValueListenableBuilder<bool>(
-              valueListenable: widget.notificationServices.hasNewNotification,
+          ValueListenableBuilder<int>(
+              valueListenable: widget.notificationServices.notificationCount,
               builder: (context, hasNew, child){
                 return IconButton(
                     onPressed: (){
@@ -47,9 +47,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       if(message != null){
                         _showNotification(message);
                       }
+                      widget.notificationServices.notificationCount.value = 0;
                       widget.notificationServices.clearNotificationState();
                     },
-                    icon: Stack(
+                    icon: Badge(
+                      backgroundColor: Colors.white,
+                      isLabelVisible: hasNew > 0,
+                      label: Text(hasNew.toString(), style: TextStyle(color: Colors.red),),
+                      child: Icon(Icons.notifications, color: Colors.white,),
+                    ),
+                    /*icon: Stack(
                       children: [
                         Icon(Icons.notifications, color: Colors.white,),
                         if(hasNew)
@@ -68,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               )
                           )
                       ],
-                    )
+                    )*/
                 );
               }
           )
