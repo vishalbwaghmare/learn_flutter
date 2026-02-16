@@ -9,7 +9,7 @@ class NotificationServices {
     await _firebaseMessaging.requestPermission();
 
     final fcmToken = await _firebaseMessaging.getToken();
-    print("FCM token : $fcmToken");
+    //print("FCM token : $fcmToken");
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
       print("Message : ${message.notification?.title}");
