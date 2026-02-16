@@ -1,8 +1,14 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 
 class NotificationServices {
 
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+  final ValueNotifier<bool> hasNewNotification = ValueNotifier(false);
+
+  RemoteMessage? latestMessage;
+  bool _appJustLaunched = true;
 
   initFCM()async{
 
@@ -13,14 +19,21 @@ class NotificationServices {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
       print("Message : ${message.notification?.title}");
+      latestMessage = message; //save message
+      hasNewNotification.value = true;
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message){
       print("Message : ${message.notification?.title}");
+      if(!_appJustLaunched){
+        latestMessage = message;
+        hasNewNotification.value = true;
+      }
     });
+    _appJustLaunched = false;
+  }
 
-    // FirebaseMessaging.onBackgroundMessage((RemoteMessage message) async {
-    //   print("Message : ${message.notification?.title}");
-    // });
+  void clearNotificationState(){
+    hasNewNotification.value = false;
   }
 }

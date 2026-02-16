@@ -27,11 +27,12 @@ Future <void> main() async{
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   final notificationService = NotificationServices();
   await notificationService.initFCM();
-  runApp(const MyApp());
+  runApp(MyApp(notificationService: notificationService,));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final NotificationServices notificationService;
+  const MyApp({super.key, required this.notificationService});
 
   // This widget is the root of your application.
   @override
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Push Notification Demo',
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.purpleAccent)),
-      home: const HomeScreen(),
+      home: HomeScreen(notificationServices: notificationService),
     );
   }
 }
