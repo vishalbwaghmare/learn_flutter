@@ -1,34 +1,108 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, TargetPlatform, defaultTargetPlatform;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class FirebaseConfig {
-  /// Creates a [FirebaseOptions] object with the keys loaded from the .env file.
+  /// Creates a [FirebaseOptions] object based on the current platform.
   ///
-  /// This method should only be called AFTER `dotenv.load()` has been executed.
-  /// Throws an exception if the required API key is not found, ensuring a fail-fast system.
+  /// This method reads the necessary API keys from the .env file and
+  /// should only be called AFTER `dotenv.load()` has been executed.
   static FirebaseOptions createOptions() {
-    // Retrieve the API key from the environment variables.
-    final apiKey = dotenv.env['FIREBASE_API_KEY_ANDROID'];
-
-    // Fail-fast: If the API key is missing, crash the app immediately.
-    // This is safer than letting Firebase fail silently.
-    if (apiKey == null) {
-      throw Exception('FIREBASE_API_KEY_ANDROID not found in .env file');
+    // 1. Determine the current platform
+    if (kIsWeb) {
+      return _createWebOptions();
     }
 
-    // You can retrieve other platform-specific IDs here if needed.
-    // These are non-secret and can be stored directly.
-    const String appId = '1:755701620617:android:f4c6aa3c8164be95c38b58';
-    const String messagingSenderId = '755701620617';
-    const String projectId = 'fir-b8753';
-    const String storageBucket = 'fir-b8753.firebasestorage.app';
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return _createAndroidOptions();
+      case TargetPlatform.iOS:
+        return _createIosOptions();
+      case TargetPlatform.macOS:
+        return _createMacOsOptions();
+      case TargetPlatform.windows:
+        return _createWindowsOptions();
+      default:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions are not supported for this platform.',
+        );
+    }
+  }
 
+  /// 2. Create private helper methods for each platform
+
+  // --- Android Configuration ---
+  static FirebaseOptions _createAndroidOptions() {
+    final apiKey = _getApiKey('FIREBASE_API_KEY_ANDROID');
     return FirebaseOptions(
       apiKey: apiKey,
-      appId: appId,
-      messagingSenderId: messagingSenderId,
-      projectId: projectId,
-      storageBucket: storageBucket,
+      appId: '1:755701620617:android:f4c6aa3c8164be95c38b58',
+      messagingSenderId: '755701620617',
+      projectId: 'fir-b8753',
+      storageBucket: 'fir-b8753.firebasestorage.app',
     );
+  }
+
+  // --- iOS Configuration ---
+  static FirebaseOptions _createIosOptions() {
+    final apiKey = _getApiKey('FIREBASE_API_KEY_IOS');
+    return FirebaseOptions(
+      apiKey: apiKey,
+      appId: '1:755701620617:ios:52b4f5bda3039d28c38b58',
+      messagingSenderId: '755701620617',
+      projectId: 'fir-b8753',
+      storageBucket: 'fir-b8753.firebasestorage.app',
+      iosBundleId: 'com.example.firebaseNotification', // Ensure this matches your iOS Bundle ID
+    );
+  }
+
+  // --- Web Configuration ---
+  static FirebaseOptions _createWebOptions() {
+    final apiKey = _getApiKey('FIREBASE_API_KEY_WEB');
+    return FirebaseOptions(
+      apiKey: apiKey,
+      appId: '1:755701620617:web:169bfaad009bc254c38b58',
+      messagingSenderId: '755701620617',
+      projectId: 'fir-b8753',
+      authDomain: 'fir-b8753.firebaseapp.com', // Web needs authDomain
+      storageBucket: 'fir-b8753.firebasestorage.app',
+      measurementId: 'G-FD2EFVMYXB', // Web may need measurementId
+    );
+  }
+
+  // --- macOS Configuration ---
+  static FirebaseOptions _createMacOsOptions() {
+    final apiKey = _getApiKey('FIREBASE_API_KEY_MACOS');
+    return FirebaseOptions(
+      apiKey: apiKey,
+      appId: '1:755701620617:ios:52b4f5bda3039d28c38b58', // Often shares appId with iOS
+      messagingSenderId: '755701620617',
+      projectId: 'fir-b8753',
+      storageBucket: 'fir-b8753.firebasestorage.app',
+      iosBundleId: 'com.example.firebaseNotification', // Ensure this matches your macOS Bundle ID
+    );
+  }
+
+  // --- Windows Configuration ---
+  static FirebaseOptions _createWindowsOptions() {
+    final apiKey = _getApiKey('FIREBASE_API_KEY_WINDOWS');
+    return FirebaseOptions(
+      apiKey: apiKey,
+      appId: '1:755701620617:ios:52b4f5bda3039d28c38b58', // Often shares appId with iOS
+      messagingSenderId: '755701620617',
+      projectId: 'fir-b8753',
+      storageBucket: 'fir-b8753.firebasestorage.app',
+      iosBundleId: 'com.example.firebaseNotification', // Ensure this matches your macOS Bundle ID
+    );
+  }
+
+
+  /// 3. Create a reusable helper to get API keys and fail-fast
+  static String _getApiKey(String keyName) {
+    final apiKey = dotenv.env[keyName];
+    if (apiKey == null || apiKey.isEmpty) {
+      throw Exception('$keyName not found in .env file or is empty');
+    }
+    return apiKey;
   }
 }

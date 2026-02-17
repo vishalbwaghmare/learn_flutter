@@ -8,8 +8,7 @@ import 'core/services/notification_services.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(
-  );
+  await Firebase.initializeApp();
   print("Handling a background message: ${message.messageId}");
   // You can add your custom logic here to handle the background message.
 }
