@@ -1,18 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_notification/firebase_options.dart';
-import 'package:firebase_notification/home_screen.dart';
-import 'package:firebase_notification/notification_services.dart';
+import 'package:firebase_notification/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'core/config/firebase_config.dart';
+import 'core/services/notification_services.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, like Firestore,
-  // make sure you call `initializeApp` before using them.
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
   );
-
   print("Handling a background message: ${message.messageId}");
   // You can add your custom logic here to handle the background message.
 }
@@ -21,10 +18,16 @@ Future <void> main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  await dotenv.load(fileName: ".env");
+  final firebaseOptions = FirebaseConfig.createOptions();
+
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: firebaseOptions,
   );
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  // Initialize application services (Dependency injection)
   final notificationService = NotificationServices();
   await notificationService.initFCM();
   runApp(MyApp(notificationService: notificationService,));

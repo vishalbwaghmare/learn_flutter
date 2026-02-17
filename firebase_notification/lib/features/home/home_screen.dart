@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_notification/notification_services.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/services/notification_services.dart';
 
 class HomeScreen extends StatefulWidget {
   final NotificationServices notificationServices;

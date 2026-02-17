@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -40,8 +41,15 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCVmAjT2WBKxV7XkQpBlRQTBnQ2OfKaNfA',
+  static final String _apiKeyWeb = dotenv.env['FIREBASE_API_KEY_WEB'] ?? '';
+  static final String _apiKeyAndroid = dotenv.env['FIREBASE_API_KEY_ANDROID'] ?? '';
+  static final String _apiKeyIos = dotenv.env['FIREBASE_API_KEY_IOS'] ?? '';
+  static final String _apiKeyMacos = dotenv.env['FIREBASE_API_KEY_MACOS'] ?? '';
+  static final String _apiKeyWindows = dotenv.env['FIREBASE_API_KEY_WINDOWS'] ?? '';
+
+
+  static final FirebaseOptions web = FirebaseOptions(
+    apiKey: _apiKeyWeb,
     appId: '1:755701620617:web:169bfaad009bc254c38b58',
     messagingSenderId: '755701620617',
     projectId: 'fir-b8753',
@@ -50,16 +58,16 @@ class DefaultFirebaseOptions {
     measurementId: 'G-FD2EFVMYXB',
   );
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD_W5JYnHVB93Lur8Aoq8ZFK5kTZ6ktF_0',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: _apiKeyAndroid,
     appId: '1:755701620617:android:f4c6aa3c8164be95c38b58',
     messagingSenderId: '755701620617',
     projectId: 'fir-b8753',
     storageBucket: 'fir-b8753.firebasestorage.app',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDRpMrigZT3gbW0dGzf_KzT-LDhlmtUjvA',
+  static FirebaseOptions ios = FirebaseOptions(
+    apiKey: _apiKeyIos,
     appId: '1:755701620617:ios:52b4f5bda3039d28c38b58',
     messagingSenderId: '755701620617',
     projectId: 'fir-b8753',
@@ -67,8 +75,8 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.example.firebaseNotification',
   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDRpMrigZT3gbW0dGzf_KzT-LDhlmtUjvA',
+  static FirebaseOptions macos = FirebaseOptions(
+    apiKey: _apiKeyMacos,
     appId: '1:755701620617:ios:52b4f5bda3039d28c38b58',
     messagingSenderId: '755701620617',
     projectId: 'fir-b8753',
@@ -76,8 +84,8 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.example.firebaseNotification',
   );
 
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyCVmAjT2WBKxV7XkQpBlRQTBnQ2OfKaNfA',
+  static FirebaseOptions windows = FirebaseOptions(
+    apiKey: _apiKeyWindows,
     appId: '1:755701620617:web:7158e8f9b01d556cc38b58',
     messagingSenderId: '755701620617',
     projectId: 'fir-b8753',
