@@ -88,7 +88,7 @@ class FirebaseConfig {
     final apiKey = _getApiKey('FIREBASE_API_KEY_WINDOWS');
     return FirebaseOptions(
       apiKey: apiKey,
-      appId: '1:755701620617:ios:52b4f5bda3039d28c38b58', // Often shares appId with iOS
+      appId: '1:755701620617:web:7158e8f9b01d556cc38b58',
       messagingSenderId: '755701620617',
       projectId: 'fir-b8753',
       storageBucket: 'fir-b8753.firebasestorage.app',
