@@ -11,11 +11,11 @@ class NotificationServices {
   bool _appJustLaunched = true;
   final ValueNotifier<int> notificationCount = ValueNotifier(0);
 
-  initFCM()async{
+  Future<void> initFCM()async{
 
     await _firebaseMessaging.requestPermission();
 
-    final fcmToken = await _firebaseMessaging.getToken();
+    //final fcmToken = await _firebaseMessaging.getToken();
     //print("FCM token : $fcmToken");
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
