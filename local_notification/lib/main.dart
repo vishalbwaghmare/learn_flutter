@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:local_notification/features/local_nofitication/send_notification.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:local_notification/features/local_nofitication/demain/repository/notification_repository.dart';
+import 'package:local_notification/features/local_nofitication/presentation/bloc/local_notification_bloc.dart';
+import 'package:local_notification/features/local_nofitication/presentation/send_notification.dart';
+import 'features/core/app_reposotory_provider.dart'; // your repository provider file
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
@@ -9,16 +13,22 @@ void main() async{
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Local notification',
-      theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+    return AppRepositoryProvider( // 👈 wrapper for repositories
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Local notification',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ),
+        home: BlocProvider(
+          create: (context) => LocalNotificationBloc(
+            context.read<NotificationRepository>(),
+          ),
+          child: const SendNotificationScreen(),
+        ),
       ),
-      home: SendNotificationScreen(),
     );
   }
 }
