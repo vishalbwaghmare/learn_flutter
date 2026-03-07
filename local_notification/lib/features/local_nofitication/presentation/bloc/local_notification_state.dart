@@ -23,12 +23,11 @@ class LocalNotificationState extends Equatable {
     bool? isNotificationSent,
     bool? isLoading,
     String? error,
-    bool resetError = false,
   }) {
     return LocalNotificationState(
       isNotificationSent: isNotificationSent ?? this.isNotificationSent,
       isLoading: isLoading ?? this.isLoading,
-      error: resetError ? null : (error ?? this.error),
+      error: error ?? this.error,
     );
   }
 
