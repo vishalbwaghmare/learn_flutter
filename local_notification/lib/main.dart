@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:local_notification/features/local_nofitication/demain/repository/notification_repository.dart';
 import 'package:local_notification/features/local_nofitication/presentation/bloc/local_notification_bloc.dart';
 import 'package:local_notification/features/local_nofitication/presentation/send_notification.dart';
-import 'features/core/app_reposotory_provider.dart'; // your repository provider file
+import 'features/core/app_reposotory_provider.dart';
+import 'features/local_nofitication/domain/repository/notification_repository.dart'; // your repository provider file
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

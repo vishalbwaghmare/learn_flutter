@@ -1,5 +1,6 @@
 import 'package:local_notification/features/local_nofitication/data/data_sourse/notification_datasourse.dart';
-import 'package:local_notification/features/local_nofitication/demain/repository/notification_repository.dart';
+
+import '../../domain/repository/notification_repository.dart';
 
 class NotificationRepositoryImpl implements NotificationRepository{
 

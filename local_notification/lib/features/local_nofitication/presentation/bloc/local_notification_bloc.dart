@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:bloc/bloc.dart';
-import 'package:local_notification/features/local_nofitication/demain/repository/notification_repository.dart';
+
+import '../../domain/repository/notification_repository.dart';
 
 part 'local_notification_event.dart';
 part 'local_notification_state.dart';

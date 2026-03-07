@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:local_notification/features/local_nofitication/data/data_sourse/notification_datasourse.dart';
 import 'package:local_notification/features/local_nofitication/data/repositories/notification_repository_impl.dart';
 
-import '../local_nofitication/demain/repository/notification_repository.dart';
+import '../local_nofitication/domain/repository/notification_repository.dart';
 
 class AppRepositoryProvider extends StatelessWidget {
   final Widget child;
