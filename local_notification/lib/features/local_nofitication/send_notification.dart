@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SendNotificationScreen extends StatefulWidget {
@@ -19,16 +18,19 @@ class _SendNotificationScreenState extends State<SendNotificationScreen> {
             onTap: (){},
             child: Container(
               width: double.infinity,
-              height: 40,
+              height: 60,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.purpleAccent,
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.purple,
               ),
-              child: Text(
-                "Send Notification",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+              child: Center(
+                child: Text(
+                  "Send Notification",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
               ),
             ),
