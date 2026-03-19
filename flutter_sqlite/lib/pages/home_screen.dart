@@ -41,7 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blue[100],
         actions: [_addTaskButton()],
       ),
-      body: Container(
+      body: _tasks.isEmpty 
+        ? Container(
+          color: Colors.blue[100],
+          child: Center(child: Text("No Task available!")),
+          )
+        : Container(
         decoration: BoxDecoration(color: Colors.blue[100]),
         child: Column(
           children: [
