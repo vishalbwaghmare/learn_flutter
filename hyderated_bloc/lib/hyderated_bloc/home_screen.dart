@@ -27,10 +27,47 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ),
             onPressed: (){
               context.read<ThemeBloc>().add(ToggleThemeEvent());
             },
-            child: Icon(Icons.brightness_1),
+            child: Icon(Icons.brightness_6,color: Colors.white,),
+          ),
+          const SizedBox(width: 5.0,),
+          FloatingActionButton(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ),
+            onPressed: (){
+              context.read<CounterBloc>().add(IncrementCounterEvent());
+            },
+            child: Icon(Icons.add,color: Colors.white),
+          ),
+          const SizedBox(width: 5.0,),
+          FloatingActionButton(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ),
+            onPressed: (){
+              context.read<CounterBloc>().add(DecrementCounterEvent());
+            },
+            child: Icon(Icons.remove,color: Colors.white),
+          ),
+          const SizedBox(width: 5.0,),
+          FloatingActionButton(
+            backgroundColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40)
+            ),
+            onPressed: (){
+              
+            },
+            child: Icon(Icons.delete_forever,color: Colors.white),
           )
         ],
       ),

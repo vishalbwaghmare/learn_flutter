@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Hyderated Bloc',
             theme: state.appTheme == AppTheme.light
               ? ThemeData.light()
