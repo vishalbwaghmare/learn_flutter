@@ -59,13 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Icon(Icons.remove,color: Colors.white),
           ),
           const SizedBox(width: 5.0,),
+
           FloatingActionButton(
             backgroundColor: Colors.blue,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(40)
             ),
             onPressed: (){
-              
+              context.read<CounterBloc>().add(ResetCounter());
             },
             child: Icon(Icons.delete_forever,color: Colors.white),
           )

@@ -10,3 +10,5 @@ sealed class CounterEvent extends Equatable {
 final class IncrementCounterEvent extends CounterEvent{}
 
 final class DecrementCounterEvent extends CounterEvent{}
+
+final class ResetCounter extends CounterEvent{}
