@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyderated_bloc/hyderated_bloc/counter/bloc/counter_bloc.dart';
-import 'package:hyderated_bloc/hyderated_bloc/home_screen.dart';
+//import 'package:hyderated_bloc/hyderated_bloc/home_screen.dart';
 import 'package:hyderated_bloc/hyderated_bloc/theme/theme_bloc.dart';
 import 'package:hyderated_bloc/hyderated_bloc/util.dart';
+import 'package:hyderated_bloc/login/login_screen.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
               ? ThemeData.light()
               : ThemeData.dark(),
 
-            home: HomeScreen(),
+            home:const LoginScreen(),
           );
         },
       ),
