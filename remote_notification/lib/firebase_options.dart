@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -45,6 +46,10 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  final web_api_key = dotenv.env['WEB_API_KEY'];
+  final android_api_key = dotenv.env['ANDRIOD_API_KEY'];
+  final ios_api_key = dotenv.env['IOS_API_KEY'];
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: '',
