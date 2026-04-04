@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
   final ios_api_key = dotenv.env['IOS_API_KEY'];
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: '',
+    apiKey: 'web_api_key',
     appId: '1:755701620617:web:169bfaad009bc254c38b58',
     messagingSenderId: '755701620617',
     projectId: 'fir-b8753',
@@ -62,7 +62,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: '',
+    apiKey: 'android_api_key',
     appId: '1:755701620617:android:90cc01c094751dd8c38b58',
     messagingSenderId: '755701620617',
     projectId: 'fir-b8753',
@@ -70,7 +70,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: '',
+    apiKey: 'ios_api_key',
     appId: '1:755701620617:ios:8970d0c2401742a6c38b58',
     messagingSenderId: '755701620617',
     projectId: 'fir-b8753',
